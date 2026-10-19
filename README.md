@@ -80,7 +80,7 @@ The supplied Trust logo is now used in the header. The temporary GK monogram rem
 
 ## Validation and limitations
 
-See `MOTION-QA.md` for the current browser results; `QA.md` records the earlier source audit. The latest source audit passes for six pages, 360 local references and 97 image elements, plus all supplied-image mappings. Every JavaScript file passes `node --check`, and all seven motion behavior tests pass.
+See `MOTION-QA.md` for the current browser results; `QA.md` records the earlier source audit. The latest source audit passes for six pages, 372 local references and 97 image elements, plus all supplied-image mappings. Every JavaScript file passes `node --check`, and all eight motion behavior tests pass.
 
 On 19 October 2026, the live website was checked in Chromium at nine widths from 320px through 1920px across all six pages. Additional checks covered enlarged text, touch portrait/landscape emulation, keyboard navigation, filters, dialogs, form validation, slideshow playback, hover effects, reduced motion and JavaScript-disabled fallback. Two slideshow edge cases were corrected without changing the design. Safari, Firefox and physical devices have not been tested.
 
@@ -91,3 +91,5 @@ The website is published at https://gk-iti.vercel.app/. Sample content and provi
 All six pages now load `css/motion.css` and `js/motion.js`: one-time scroll reveals, complementary image/text entrances, staggered cards, navigation and button micro-interactions, filter-result feedback, modal/menu entrances and form focus feedback. The existing photo slider crossfades only after the next image is ready and pauses while offscreen. Motion is shortened on mobile and disabled for reduced-motion preferences; content is never pre-hidden by the animation system.
 
 Run `node --test tests/motion.test.cjs` for dependency-free behavioral checks. See `MOTION-QA.md` for implementation details and the completed browser viewport and interaction checks. These updates preserve existing HTML content and contact details.
+
+All six pages also load `css/page-loader.css` and `js/page-loader.js`: the existing Trust logo and a saffron ring appear briefly during loading, then fade away. The loader has a three-second dismissal fallback, respects reduced motion and clears immediately on interaction. Entrances begin after it clears. Deep links, restored pages, disabled JavaScript and missing loader assets retain access to the ordinary page.

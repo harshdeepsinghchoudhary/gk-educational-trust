@@ -13,7 +13,7 @@ function events(target = {}) {
   target.emit = (type, event = {}) => handlers.get(type)?.forEach(fn => fn(event));
   return target;
 }
-function motionEnvironment({ reduced = false, observerAvailable = true } = {}) {
+function motionEnvironment({ reduced = false, observerAvailable = true, loading = false } = {}) {
   const preference = events({ matches: reduced });
   const active = [];
   class Element {
@@ -32,7 +32,12 @@ function motionEnvironment({ reduced = false, observerAvailable = true } = {}) {
     getBoundingClientRect() { return { top: 100, bottom: 200 }; }
   }
   const heading = new Element();
+  const rootClasses = new Set(loading ? ['page-loading'] : []);
   const document = events({ activeElement: null, hidden: false,
+    documentElement: { classList: {
+      contains: name => rootClasses.has(name),
+      remove: name => rootClasses.delete(name)
+    } },
     querySelectorAll: selector => selector.includes('.hero-copy >') ? [heading] : []
   });
   let observed;
@@ -58,6 +63,22 @@ test('content stays visible until observed and entrances run only once', () => {
   assert.equal(env.observed.targets.size, 0);
   env.observed.callback([{ target: env.heading, isIntersecting: true }]);
   assert.equal(env.active.length, 1);
+  assert.equal(env.heading.hidden, false);
+});
+test('page entrances wait until the loading layer has been dismissed', () => {
+  const env = motionEnvironment({ loading: true });
+  assert.equal(env.observed.targets.size, 0);
+  assert.equal(env.active.length, 0);
+  assert.equal(env.heading.hidden, false);
+
+  env.document.documentElement.classList.remove('page-loading');
+  env.document.emit('gk:page-ready');
+  assert.equal(env.observed.targets.has(env.heading), true);
+  assert.equal(env.active.length, 0);
+
+  env.observed.callback([{ target: env.heading, isIntersecting: true }]);
+  assert.equal(env.active.length, 1);
+  assert.equal(env.observed.targets.size, 0);
   assert.equal(env.heading.hidden, false);
 });
 test('reduced motion and missing IntersectionObserver keep content visible without entrances', () => {

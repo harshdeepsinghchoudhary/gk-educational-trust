@@ -73,3 +73,19 @@ After the fixes, all seven dependency-free behavior tests, all JavaScript syntax
 ### Scope limits
 
 These results cover Chromium and emulated viewport/touch settings. Physical devices, Safari/WebKit and Firefox were not tested. This is a functional and visual QA pass, not a performance benchmark or formal accessibility certification.
+
+## Page loading animation: 19 October 2026
+
+Added a white loading layer with the existing logo, a saffron rotating ring and a short loading label to all six pages. It fades on window load (400ms minimum display plus a 260ms fade), with a three-second fallback that starts dismissal even if an image stalls. Interaction dismisses it immediately. Reduced motion disables rotation, fading and the minimum delay. Deep links bypass it, restored pages are clear, and a late-arriving loader script does not cover content already being read. No layout, page content or existing design was changed.
+
+The observer for existing entrance animations now waits for `gk:page-ready`, avoiding animations running unseen behind the loading layer. A regression test covers this sequencing; all eight behavior tests pass. Source QA passes six pages, 372 local references and 97 HTML image elements.
+
+Browser verification used the edited assets through Playwright request routing in Chromium:
+
+- All six pages at 1440px and 390px showed the loader, cleared it once, then ran entrances. No early entrances, page errors or horizontal overflow occurred.
+- Reviewed loader screenshots at 1440px and 320px.
+- A deliberately stalled initial image did not prevent fallback dismissal; the document was still loading after the layer was removed.
+- Reduced motion produced no ring animation or fade and cleared immediately after load.
+- Early Tab dismissed the loader and focused the skip link; an early click dismissed it and opened the mobile menu.
+- A delayed loader script skipped the layer after content had already painted. Deep-linked training details opened without a loader. Back navigation left the page usable without a retained loading flag.
+- Disabled JavaScript created no overlay and retained all navigation links. Blocking either the loader CSS or loader JavaScript left the page visible and usable; restoring the assets restored normal loading and entrance behavior.

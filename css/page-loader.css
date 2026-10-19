@@ -1,0 +1,46 @@
+/* A temporary loading layer; the page underneath keeps its normal layout. */
+.page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 22px;
+    background: #fff;
+    color: #163d67;
+    pointer-events: none;
+    transition: opacity 260ms ease-out;
+}
+
+.page-loader.is-leaving { opacity: 0; }
+
+.page-loader-mark {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 116px;
+    height: 116px;
+}
+
+.page-loader-mark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 3px solid #e7eef5;
+    border-top-color: #dc8a2b;
+    border-radius: 50%;
+    animation: gk-loading-spin 1s linear infinite;
+}
+
+.page-loader-mark img { width: 70px; height: 76px; object-fit: contain; }
+.page-loader-label { font-size: .75rem; font-weight: 600; letter-spacing: .12em; }
+
+@keyframes gk-loading-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+    .page-loader { transition: none; }
+    .page-loader-mark::before { animation: none; }
+}
+
+@media print { .page-loader { display: none; } }

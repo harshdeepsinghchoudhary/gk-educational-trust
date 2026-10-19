@@ -85,7 +85,11 @@
         entrance(entry.target, entry.target.dataset.motion, options.delay);
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -18px 0px' });
-    targets.forEach((_, element) => observer.observe(element));
+    // Let page entrances remain visible after the loading layer fades away.
+    const observeTargets = () => targets.forEach((_, element) => observer.observe(element));
+    if (document.documentElement?.classList.contains('page-loading')) {
+      document.addEventListener('gk:page-ready', observeTargets, { once: true });
+    } else observeTargets();
 
     // Hash navigation and keyboard focus always take priority over entrances.
     document.addEventListener('focusin', event => {
