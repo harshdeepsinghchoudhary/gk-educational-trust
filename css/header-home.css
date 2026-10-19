@@ -502,7 +502,10 @@
 /* Edge controls stay vertically centered at every viewport width. */
 .photo-slider .slider-controls {
     inset: 0;
-    pointer-events: none;
+    pointer-events: none
+}
+
+.js .photo-slider .slider-controls {
     display: block
 }
 

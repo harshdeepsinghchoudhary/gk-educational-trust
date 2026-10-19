@@ -80,14 +80,14 @@ The supplied Trust logo is now used in the header. The temporary GK monogram rem
 
 ## Validation and limitations
 
-See `QA.md` for checks performed and the remaining browser test checklist. The latest source audit passes for six pages, 342 local references and 97 image elements, plus all supplied-image mappings. Every JavaScript file passes `node --check`. The initial version's six page routes returned HTTP 200 from a temporary local server; the revised layout has been source-checked only.
+See `MOTION-QA.md` for the current browser results; `QA.md` records the earlier source audit. The latest source audit passes for six pages, 360 local references and 97 image elements, plus all supplied-image mappings. Every JavaScript file passes `node --check`, and all seven motion behavior tests pass.
 
-**Browser verification remains outstanding.** The session's browser inventory was empty and the preview browser was unavailable. Responsive layouts at 1440, 1280, 1024, 768, 390 and 320 pixels, keyboard/focus behavior, live filtering, native validation, console errors and visual appearance have therefore not been observed in a browser. Code inspection is not a substitute for those checks.
+On 19 October 2026, the live website was checked in Chromium at nine widths from 320px through 1920px across all six pages. Additional checks covered enlarged text, touch portrait/landscape emulation, keyboard navigation, filters, dialogs, form validation, slideshow playback, hover effects, reduced motion and JavaScript-disabled fallback. Two slideshow edge cases were corrected without changing the design. Safari, Firefox and physical devices have not been tested.
 
-This is a local demonstration, not a published or production website. All sample content and provisional statements require client approval.
+The website is published at https://gk-iti.vercel.app/. Sample content and provisional statements remain subject to client approval, and the enquiry form remains a non-submitting preview.
 
 ## Animation and interaction update
 
 All six pages now load `css/motion.css` and `js/motion.js`: one-time scroll reveals, complementary image/text entrances, staggered cards, navigation and button micro-interactions, filter-result feedback, modal/menu entrances and form focus feedback. The existing photo slider crossfades only after the next image is ready and pauses while offscreen. Motion is shortened on mobile and disabled for reduced-motion preferences; content is never pre-hidden by the animation system.
 
-Run `node --test tests/motion.test.cjs` for dependency-free behavioral checks. See `MOTION-QA.md` for implementation details, verified checks and the pending browser viewport matrix. These updates preserve existing HTML content and contact details.
+Run `node --test tests/motion.test.cjs` for dependency-free behavioral checks. See `MOTION-QA.md` for implementation details and the completed browser viewport and interaction checks. These updates preserve existing HTML content and contact details.

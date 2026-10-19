@@ -73,7 +73,8 @@ if (slider) {
   function schedule() {
     clearInterval(timer);
     if (playing && onScreen && !document.hidden && !slider.matches(':hover') && !slider.contains(document.activeElement)) {
-      timer = setInterval(() => showSlide(current + 1), 6000);
+      // Advance past a failed photo instead of retrying it on every tick.
+      timer = setInterval(() => showSlide(requested + 1), 6000);
     }
   }
   slider.querySelector('[data-slide-prev]').addEventListener('click', () => { showSlide(requested - 1); schedule(); });

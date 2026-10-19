@@ -149,3 +149,27 @@ test('slideshow pauses on hover and resumes on leaving; image failures retain cu
   assert.equal(env.slides[0].hidden, false);
   assert.equal(env.counter.textContent, '01 / 3');
 });
+
+test('autoplay advances past a failed image and keeps cycling', async () => {
+  const env = sliderEnvironment();
+  await flush();
+  env.images[1].decode = () => Promise.reject(new Error('failed image'));
+  const tick = () => [...env.callbacks.values()].forEach(callback => callback());
+
+  tick();
+  await flush();
+  assert.equal(env.counter.textContent, '01 / 3');
+  assert.equal(env.slides[0].hidden, false);
+  assert.equal(env.slides[1].hidden, true);
+
+  tick();
+  await flush();
+  assert.equal(env.counter.textContent, '03 / 3');
+  assert.equal(env.slides[2].hidden, false);
+  assert.equal(env.slides[1].hidden, true);
+
+  tick();
+  await flush();
+  assert.equal(env.counter.textContent, '01 / 3');
+  assert.equal(env.slides[0].hidden, false);
+});

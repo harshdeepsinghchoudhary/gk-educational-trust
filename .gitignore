@@ -35,6 +35,7 @@ tmp/
 temp/
 coverage/
 playwright-report/
+.playwright-mcp/
 test-results/
 
 # Keep HTML, CSS, JS, documentation and all supplied/website images tracked.

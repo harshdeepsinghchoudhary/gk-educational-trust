@@ -26,7 +26,7 @@ Slideshow images decode before replacement; the previous image stays visible dur
 - Grid children have explicit shrink-safe sizing; no global horizontal-overflow hiding is used.
 - Filter animations are limited to results currently within the viewport; offscreen content is left visible and available for normal one-time reveals.
 
-These are code-review fixes, not claims of visually verified rendering.
+These refinements were subsequently checked in the connected Chromium browser on 19 October 2026, as recorded below.
 
 ## Checks actually performed
 
@@ -37,12 +37,39 @@ These are code-review fixes, not claims of visually verified rendering.
 - Motion CSS block-structure check passed.
 - `node --test tests/motion.test.cjs` covers one-time reveals, visible fallback, reduced motion, keyboard focus, hidden-tab cancellation, viewport-limited filtering, rapid slideshow navigation, hover pausing and image-load failure behavior. These are simulated DOM behavior tests, not browser tests.
 
-## Browser verification pending
+## Browser verification completed: 19 October 2026
 
-Browser discovery returned no connected browsers or apps. A direct Chrome preview attempt returned “Browser is not available: chrome”. Browser connection was requested; no usable browser had become available during implementation.
+Tested the deployed site at https://gk-iti.vercel.app/ in Chromium 155.0.8059.82. The initial review used the deployed assets; the two fixes below were then tested by serving the edited assets through Playwright request routing before publication. No HTML, page content, image, layout or design changes were made in this QA pass.
 
-**Actual browser viewport sizes tested: none.** No screenshots, visual reviews, layout measurements or browser console results are claimed. The requested first visual review and second review after fixes remain pending.
+### Responsive and visual checks
 
-When browser access is available, test every page at **1920, 1440, 1280, 1024, 768, 430, 390, 375 and 320px**. Inspect the initial viewport and full-page scroll, then revisit sections to confirm entrances do not replay. Check horizontal overflow, enlarged text, keyboard navigation, all filters, gallery controls, training dialogs, the demo form, reduced-motion changes, JavaScript-disabled content and the console. Capture screenshots and repeat affected checks after visual fixes.
+- All six pages were loaded and scrolled at **1920, 1440, 1280, 1024, 768, 430, 390, 375 and 320px**: 54 page/width combinations. No horizontal page overflow, broken visible images or motion elements stuck invisible were found. No page errors or failed HTTP responses occurred in the baseline sweep.
+- Captured initial and full-page screenshots at 1440px and 390px for every page. Reviewed desktop and mobile captures, plus targeted screenshots of the menu, training details, contact result, lightbox and slideshow. Screenshots are local QA artifacts in the ignored `.playwright-mcp/` directory.
+- Tested the 20px text preference on all six pages at 320, 768, 1024 and 1280px: no horizontal overflow. Preference persistence and the maximum-size disabled control passed.
+- Touch emulation at 390x844 and 844x390 passed on all six pages: no horizontal overflow, working menu controls, accessible navigation links and no desktop hover media query. Touch lightbox opening, next and close passed.
+- The expanded training card retains 24px bottom padding; a settled browser measurement was approximately 24.8px including its border.
 
-The local preview uses a basic loopback HTTP server; Live Server can also serve this folder. See the repository history for publication status. Browser visual verification remains pending until a browser connection is available.
+### Motion and interaction checks
+
+- On mobile, a full scroll followed by a second pass did not replay entrance animations. Counts stayed at Home 40, About 28, Trainings 16, News 19, Contact 15 and Gallery 44. Durations were capped at 430ms and all content settled at full opacity.
+- Verified navigation underlines, button elevation and arrow movement, quick-card/card/objective/office elevation, card/gallery image zoom, notification hover, footer link/heading feedback, field focus styling and back-to-top feedback using computed styles before and after interaction.
+- Ticker pauses on hover; keyboard focus switches it to stationary readable content without overflow. The notification panel scrolls by keyboard.
+- All 35 slideshow photographs loaded. Next/previous buttons, keyboard arrows, both wrap directions, single visible settled slide, proportional cover sizing and 44px mobile arrows passed. Autoplay advances normally, pauses on hover/focus/offscreen, resumes after pointer exit and stops for reduced motion while manual navigation remains available.
+- Training search, all categories, empty state and reset passed. All six dialogs opened without overflow at 1440px and 320px; Escape restored the opening link. Native dialog navigation did not expose background controls; Chromium may move Tab focus to browser chrome at the end of a cycle.
+- News filters returned 2 updates, 2 training entries, 1 event, 1 announcement and 6 total entries. All six detail links opened their native disclosures at desktop and mobile widths.
+- Gallery filters returned 4 classroom, 2 practical, 5 workshops, 24 skill and 35 total photos. Lightbox sizing, image loading, next/previous wraparound, arrow keys, Escape and restored focus passed at 1440px and 320px.
+- Contact validation rejected empty required fields, invalid email, invalid optional phone and missing consent. A valid sample preview displayed the existing status, focused it and reset the form; editing hid stale status. No non-GET request was made. The form remains a preview without a submission backend.
+- Mobile menu open, Escape, outside click, every navigation destination, active-page indication and the tablet/desktop breakpoint passed. Skip-to-main and back-to-top focus behavior passed.
+- Reduced motion on all six pages produced zero running animations, no invisible motion content and no overflow. JavaScript-disabled pages retained their headings and six navigation links; native training disclosures and gallery image links worked, and the form submit remained disabled.
+- The connected page's console contained zero errors or warnings across the ordinary browser checks. The separate failed-image test intentionally aborted one image request.
+
+### Fixes and regression results
+
+1. **Autoplay recovery:** use the last requested slide index for the next timed advance. A failed image leaves the current photo visible and the following tick proceeds to the next photo instead of retrying the failure forever. Verified by blocking photo 2 in the browser: photo 1 stayed visible, then autoplay reached photo 3. Added a failure-and-wraparound behavior test.
+2. **JavaScript-disabled controls:** scope the slideshow control display rule to `.js`. Inactive arrows are now hidden when JavaScript is unavailable, while the first photo and gallery fallback remain visible. Normal slideshow appearance and controls are unchanged.
+
+After the fixes, all seven dependency-free behavior tests, all JavaScript syntax checks, `node qa-check.cjs` and `git diff --check` passed. The source audit checked six pages, 360 local references and 97 images.
+
+### Scope limits
+
+These results cover Chromium and emulated viewport/touch settings. Physical devices, Safari/WebKit and Firefox were not tested. This is a functional and visual QA pass, not a performance benchmark or formal accessibility certification.
