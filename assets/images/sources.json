@@ -1,0 +1,182 @@
+[
+  {
+    "source": "IMG_20240104_125130.jpg",
+    "output": "assets/images/supplied-01.jpg",
+    "logo": false
+  },
+  {
+    "source": "20230504_140614.jpg",
+    "output": "assets/images/supplied-02.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG_1336.HEIC",
+    "output": "assets/images/supplied-03.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG_1337.HEIC",
+    "output": "assets/images/supplied-04.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG_20240104_123709.jpg",
+    "output": "assets/images/supplied-05.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG_20240104_123733.jpg",
+    "output": "assets/images/supplied-06.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG_20240104_123823.jpg",
+    "output": "assets/images/supplied-07.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG_20240104_123857.jpg",
+    "output": "assets/images/supplied-08.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG_7243.HEIC",
+    "output": "assets/images/supplied-09.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG_8680.HEIC",
+    "output": "assets/images/supplied-10.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG_8707.HEIC",
+    "output": "assets/images/supplied-11.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG-20230814-WA0023.jpg",
+    "output": "assets/images/supplied-12.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG-20230814-WA0039.jpg",
+    "output": "assets/images/supplied-13.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG-20231228-WA0010.jpg",
+    "output": "assets/images/supplied-14.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG-20231228-WA0030.jpg",
+    "output": "assets/images/supplied-15.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG-20250710-WA0020.jpg",
+    "output": "assets/images/supplied-16.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG-20250711-WA0006.jpg",
+    "output": "assets/images/supplied-17.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG20230304113145.jpg",
+    "output": "assets/images/supplied-18.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG20230304113340.jpg",
+    "output": "assets/images/supplied-19.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG20230504130129.jpg",
+    "output": "assets/images/supplied-20.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG20230504130206.jpg",
+    "output": "assets/images/supplied-21.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG20230613124132.jpg",
+    "output": "assets/images/supplied-22.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG20230613124535.jpg",
+    "output": "assets/images/supplied-23.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG20230613134942.jpg",
+    "output": "assets/images/supplied-24.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG20230617115235.jpg",
+    "output": "assets/images/supplied-25.jpg",
+    "logo": false
+  },
+  {
+    "source": "IMG20230619143331.jpg",
+    "output": "assets/images/supplied-26.jpg",
+    "logo": false
+  },
+  {
+    "source": "Updated GK LOGO 2025.jpg.jpeg",
+    "output": "assets/images/trust-logo-gkiti.png",
+    "logo": true
+  },
+  {
+    "source": "WhatsApp Image 2025-12-19 at 11.31.32 AM.jpeg",
+    "output": "assets/images/supplied-28.jpg",
+    "logo": false
+  },
+  {
+    "source": "WhatsApp Image 2025-12-19 at 11.38.58 AM.jpeg",
+    "output": "assets/images/supplied-29.jpg",
+    "logo": false
+  },
+  {
+    "source": "WhatsApp Image 2025-12-26 at 10.23.21 AM (3).jpeg",
+    "output": "assets/images/supplied-30.jpg",
+    "logo": false
+  },
+  {
+    "source": "WhatsApp Image 2025-12-26 at 10.23.22 AM (2).jpeg",
+    "output": "assets/images/supplied-31.jpg",
+    "logo": false
+  },
+  {
+    "source": "WhatsApp Image 2026-10-16 at 4.14.12 PM.jpeg",
+    "output": "assets/images/supplied-32.jpg",
+    "logo": false
+  },
+  {
+    "source": "WhatsApp Image 2026-10-16 at 4.14.13 PM.jpeg",
+    "output": "assets/images/supplied-33.jpg",
+    "logo": false
+  },
+  {
+    "source": "WhatsApp Image 2026-10-16 at 4.14.14 PM.jpeg",
+    "output": "assets/images/supplied-34.jpg",
+    "logo": false
+  },
+  {
+    "source": "WhatsApp Image 2026-10-16 at 4.14.15 PM.jpeg",
+    "output": "assets/images/supplied-35.jpg",
+    "logo": false
+  },
+  {
+    "source": "WhatsApp Image 2026-10-16 at 4.14.17 PM.jpeg",
+    "output": "assets/images/supplied-36.jpg",
+    "logo": false
+  }
+]

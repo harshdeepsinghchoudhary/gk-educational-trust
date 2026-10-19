@@ -1,0 +1,40 @@
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local editor settings and recovery files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Credentials and machine-local configuration
+.env
+.env.*
+!.env.example
+!.env.sample
+.aws/
+.codex/
+
+# Optional development tools and caches
+node_modules/
+.npm/
+.cache/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Logs and temporary output
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+coverage/
+playwright-report/
+test-results/
+
+# Keep HTML, CSS, JS, documentation and all supplied/website images tracked.
