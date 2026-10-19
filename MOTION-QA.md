@@ -89,3 +89,11 @@ Browser verification used the edited assets through Playwright request routing i
 - Early Tab dismissed the loader and focused the skip link; an early click dismissed it and opened the mobile menu.
 - A delayed loader script skipped the layer after content had already painted. Deep-linked training details opened without a loader. Back navigation left the page usable without a retained loading flag.
 - Disabled JavaScript created no overlay and retained all navigation links. Blocking either the loader CSS or loader JavaScript left the page visible and usable; restoring the assets restored normal loading and entrance behavior.
+
+## Selected slides and close-button correction
+
+The homepage now retains the user's 15 selected photographs, while the gallery keeps all 35. Fixed the initially hidden first slide and its missing `src`, renumbered the static labels and counter, and made runtime labels follow the actual collection. The source audit now accepts a selected homepage subset, verifies first-slide visibility and labels, and ignores formatting-only footer differences.
+
+Centered both dialog close controls with grid alignment, zero padding and a unit line height. Restricted gallery navigation padding to the footer buttons so it no longer shifts the close icon.
+
+Validation was code-only at the user's request: `node --check js/home.js`, all eight behavior tests, source QA (six pages, 352 local references, 77 image elements) and `git diff --check` passed. No browser tests were run for these latest changes; earlier browser results above describe the earlier site version.

@@ -18,6 +18,8 @@ if (updates) {
 const slider = document.querySelector('.photo-slider');
 if (slider) {
   const slides = [...slider.querySelectorAll('.photo-slide')];
+  // Slide selection may change; labels always describe the current collection.
+  slides.forEach((slide, i) => slide.setAttribute('aria-label', `${i + 1} of ${slides.length}`));
   const counter = slider.querySelector('.slide-counter');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let current = 0;
@@ -98,6 +100,8 @@ if (slider) {
       schedule();
     }).observe(slider);
   }
+  settle();
+  counter.textContent = `01 / ${slides.length}`;
   showSlide(0, false);
   schedule();
 }

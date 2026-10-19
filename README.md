@@ -31,7 +31,7 @@ Public Sans is requested from Google Fonts with `display=swap`. If the network i
 
 The header includes a utility bar with a skip link, working text-size controls (14–20px base size) and the English label. Navigation now sits beside the supplied Trust logo in the white identity header, aligned to the same 1240px maximum container width as the sections. The separate blue navigation strip and affiliation block have been removed as requested. The mobile menu supports Escape and exposes its expanded state. Navigation remains visible without JavaScript.
 
-A full-width, viewport-height photo slider appears before the introductory hero. It includes all 35 supplied photographs, left/right edge arrows and a counter, with no pause/play button. Photos fill the frame using proportional cropping. Playback pauses on hover, keyboard focus and hidden tabs; reduced-motion users start with playback paused. Only the current/next photo is loaded by the slideshow, avoiding an upfront download of the entire collection. Without JavaScript, the first photo and a link to the complete gallery remain available.
+A full-width, viewport-height photo slider appears before the introductory hero. It includes 15 selected photographs, left/right edge arrows and a counter, with no pause/play button. Photos fill the frame using proportional cropping. Playback pauses on hover, keyboard focus and hidden tabs; reduced-motion users start with playback paused. Only the current/next photo is loaded by the slideshow, avoiding an upfront download of the entire collection. Without JavaScript, the first photo and a link to the complete gallery remain available. Slide labels and the counter follow the selected collection; all 35 photographs remain in the gallery.
 
 The introductory hero now has a keyboard-focusable, vertically scrollable notification panel instead of its previous right-side image. Notifications remain clearly marked as illustrative and link to the corresponding sample news details.
 
@@ -47,7 +47,7 @@ Use sample information only. No production privacy or accessibility certificatio
 
 ## Photography and rights
 
-All 36 supplied files in `images/` are now used: 35 photographs in the homepage slider and gallery, plus the institutional logo in the header. Five HEIC photographs were converted to JPEG with a temporary development-only converter; the website has no conversion dependency. Copies have a maximum dimension of 1600 pixels (320 for the logo). The 35 photos total approximately 9.25 MiB and are loaded progressively. Original files remain unchanged. `assets/images/sources.json` maps every original to its browser-compatible copy. The earlier nine optimized images remain in use in other page sections; their mapping follows.
+All 36 supplied files in `images/` are used: 35 photographs in the gallery, 15 of those selected for the homepage slider, plus the institutional logo in the header. Five HEIC photographs were converted to JPEG with a temporary development-only converter; the website has no conversion dependency. Copies have a maximum dimension of 1600 pixels (320 for the logo). The 35 photos total approximately 9.25 MiB and are loaded progressively. Original files remain unchanged. `assets/images/sources.json` maps every original to its browser-compatible copy. The earlier nine optimized images remain in use in other page sections; their mapping follows.
 
 These are **user-supplied assets, not independently licensed stock images**. Their copyright, participant permissions and institutional context have not been verified. Use is limited to this local presentation until the client confirms rights and consent. Captions describe visible scenes without asserting that they document Trust activities. No dates or achievements were inferred from filenames.
 
@@ -80,7 +80,7 @@ The supplied Trust logo is now used in the header. The temporary GK monogram rem
 
 ## Validation and limitations
 
-See `MOTION-QA.md` for the current browser results; `QA.md` records the earlier source audit. The latest source audit passes for six pages, 372 local references and 97 image elements, plus all supplied-image mappings. Every JavaScript file passes `node --check`, and all eight motion behavior tests pass.
+See `MOTION-QA.md` for the recorded browser results and subsequent code-only checks; `QA.md` records the earlier source audit. After reducing the homepage slideshow to 15 photographs, source QA passes for six pages, 352 local references and 77 image elements, plus all supplied-image mappings. All eight motion behavior tests pass. The slide-selection and close-button fixes were checked without browser testing, as requested.
 
 On 19 October 2026, the live website was checked in Chromium at nine widths from 320px through 1920px across all six pages. Additional checks covered enlarged text, touch portrait/landscape emulation, keyboard navigation, filters, dialogs, form validation, slideshow playback, hover effects, reduced motion and JavaScript-disabled fallback. Two slideshow edge cases were corrected without changing the design. Safari, Firefox and physical devices have not been tested.
 
