@@ -23,7 +23,7 @@ document.addEventListener('click', event => {
 menu.addEventListener('click', event => {
   if (event.target.closest('a')) closeMenu();
 });
-window.matchMedia('(min-width: 761px)').addEventListener('change', event => {
+window.matchMedia('(min-width: 1025px)').addEventListener('change', event => {
   if (event.matches) closeMenu();
 });
 

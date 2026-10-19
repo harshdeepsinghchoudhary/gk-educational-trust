@@ -85,3 +85,9 @@ See `QA.md` for checks performed and the remaining browser test checklist. The l
 **Browser verification remains outstanding.** The session's browser inventory was empty and the preview browser was unavailable. Responsive layouts at 1440, 1280, 1024, 768, 390 and 320 pixels, keyboard/focus behavior, live filtering, native validation, console errors and visual appearance have therefore not been observed in a browser. Code inspection is not a substitute for those checks.
 
 This is a local demonstration, not a published or production website. All sample content and provisional statements require client approval.
+
+## Animation and interaction update
+
+All six pages now load `css/motion.css` and `js/motion.js`: one-time scroll reveals, complementary image/text entrances, staggered cards, navigation and button micro-interactions, filter-result feedback, modal/menu entrances and form focus feedback. The existing photo slider crossfades only after the next image is ready and pauses while offscreen. Motion is shortened on mobile and disabled for reduced-motion preferences; content is never pre-hidden by the animation system.
+
+Run `node --test tests/motion.test.cjs` for dependency-free behavioral checks. See `MOTION-QA.md` for implementation details, verified checks and the pending browser viewport matrix. These updates preserve existing HTML content and contact details.

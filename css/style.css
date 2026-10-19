@@ -1152,6 +1152,10 @@ textarea {
     padding: 0 24px
 }
 
+.details-list .programme-detail {
+    padding-bottom: 24px;
+}
+
 .details-list summary {
     padding: 20px 0;
     cursor: pointer;

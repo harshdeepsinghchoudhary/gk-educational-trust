@@ -12,6 +12,7 @@ galleryFilters.forEach(button => {
     });
     visiblePhotos = galleryItems.filter(item => !item.hidden);
     document.getElementById('gallery-count').textContent = `Showing ${visiblePhotos.length} of ${galleryItems.length} representative photographs`;
+    document.dispatchEvent(new CustomEvent('gk:filtered', { detail: { items: visiblePhotos } }));
   });
 });
 function showPhoto(index) {

@@ -13,6 +13,7 @@ function filterTrainings() {
   });
   trainingCount.textContent = `Showing ${count} of 6 illustrative programmes`;
   document.getElementById('training-empty').hidden = count !== 0;
+  document.dispatchEvent(new CustomEvent('gk:filtered', { detail: { items: trainingCards.filter(card => !card.hidden) } }));
 }
 search.addEventListener('input', filterTrainings);
 category.addEventListener('change', filterTrainings);

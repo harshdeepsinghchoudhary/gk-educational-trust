@@ -10,5 +10,6 @@ newsFilters.forEach(button => {
       if (!card.hidden) count++;
     });
     document.getElementById('news-count').textContent = `Showing ${count} of 6 sample entries`;
+    document.dispatchEvent(new CustomEvent('gk:filtered', { detail: { items: newsCards.filter(card => !card.hidden) } }));
   });
 });

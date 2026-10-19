@@ -21,34 +21,67 @@ if (slider) {
   const counter = slider.querySelector('.slide-counter');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let current = 0;
+  let requested = 0;
+  let revision = 0;
+  let fade;
+  let onScreen = true;
   let playing = !reducedMotion.matches;
   let timer;
-  function showSlide(index) {
-    current = (index + slides.length) % slides.length;
+  function imageFor(index) {
+    const image = slides[index].querySelector('img');
+    if (image.dataset.src) {
+      image.src = image.dataset.src;
+      delete image.dataset.src;
+    }
+    return image;
+  }
+  function settle() {
+    fade?.cancel();
+    fade = null;
     slides.forEach((slide, i) => {
       slide.hidden = i !== current;
-      if (i === current || i === (current + 1) % slides.length) {
-        const image = slide.querySelector('img');
-        if (image.dataset.src) {
-          image.src = image.dataset.src;
-          delete image.dataset.src;
-        }
-      }
+      slide.style.zIndex = '';
+      slide.setAttribute('aria-hidden', String(i !== current));
     });
+  }
+  async function showSlide(index, animate = true) {
+    const ticket = ++revision;
+    const next = (index + slides.length) % slides.length;
+    requested = next;
+    const image = imageFor(next);
+    // Keep the existing photo visible while its successor downloads/decodes.
+    try { if (image.decode) await image.decode(); } catch { return; }
+    if (ticket !== revision) return;
+    settle();
+    const previous = current;
+    current = next;
+    const incoming = slides[current];
+    incoming.hidden = false;
+    incoming.setAttribute('aria-hidden', 'false');
+    if (animate && previous !== current && !reducedMotion.matches && incoming.animate) {
+      slides[previous].setAttribute('aria-hidden', 'true');
+      incoming.style.zIndex = '1';
+      fade = incoming.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 650, easing: 'cubic-bezier(.22,1,.36,1)'
+      });
+      const activeFade = fade;
+      activeFade.finished.then(() => { if (fade === activeFade) settle(); }).catch(() => {});
+    } else settle();
     counter.textContent = `${String(current + 1).padStart(2, '0')} / ${slides.length}`;
+    imageFor((current + 1) % slides.length);
   }
   function schedule() {
     clearInterval(timer);
-    if (playing && !document.hidden && !slider.matches(':hover') && !slider.contains(document.activeElement)) {
+    if (playing && onScreen && !document.hidden && !slider.matches(':hover') && !slider.contains(document.activeElement)) {
       timer = setInterval(() => showSlide(current + 1), 6000);
     }
   }
-  slider.querySelector('[data-slide-prev]').addEventListener('click', () => { showSlide(current - 1); schedule(); });
-  slider.querySelector('[data-slide-next]').addEventListener('click', () => { showSlide(current + 1); schedule(); });
+  slider.querySelector('[data-slide-prev]').addEventListener('click', () => { showSlide(requested - 1); schedule(); });
+  slider.querySelector('[data-slide-next]').addEventListener('click', () => { showSlide(requested + 1); schedule(); });
   slider.addEventListener('keydown', event => {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
-      showSlide(current + (event.key === 'ArrowRight' ? 1 : -1));
+      showSlide(requested + (event.key === 'ArrowRight' ? 1 : -1));
       schedule();
     }
   });
@@ -57,7 +90,13 @@ if (slider) {
   slider.addEventListener('focusin', () => clearInterval(timer));
   slider.addEventListener('focusout', () => setTimeout(schedule, 0));
   document.addEventListener('visibilitychange', schedule);
-  reducedMotion.addEventListener('change', () => { playing = !reducedMotion.matches; schedule(); });
-  showSlide(0);
+  reducedMotion.addEventListener('change', () => { playing = !reducedMotion.matches; settle(); schedule(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      schedule();
+    }).observe(slider);
+  }
+  showSlide(0, false);
   schedule();
 }
